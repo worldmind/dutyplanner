@@ -1,6 +1,8 @@
 module DutyPlanner where
 
-import Data.List( zip, permutations )
+import Data.List( zip, permutations, intercalate )
+import Data.Time
+import Data.Time.Format ( formatTime )
 import Data.Time.Calendar
 
 type Person   = String
@@ -16,3 +18,9 @@ makeDutyPlan persons4duty days rndint = zip days unlimitedHumans
 
 shuffle :: Persons -> RandomInteger -> Persons
 shuffle persons4duty rndint = permutations persons4duty !! rndint
+
+prettyDuty :: DutyPlan -> String
+prettyDuty plan = intercalate "\n" (map joinTuple plan)
+
+joinTuple :: (Day, Person) -> String
+joinTuple tuple = formatTime defaultTimeLocale "%Y-%m-%d" (fst tuple) ++ ", " ++ snd tuple

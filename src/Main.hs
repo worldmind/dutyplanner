@@ -1,10 +1,15 @@
-import DutyPlanner (makeDutyPlan)
-import Data.Time.Calendar (fromGregorian)
-import System.Random
+import System.Environment ( getArgs )
+import System.Random ( randomRIO )
+import Data.Time
+import DutyPlanner ( makeDutyPlan, prettyDuty )
 
 main = do
-  let start   = (fromGregorian 2014 06 01)
-  let end     = (fromGregorian 2014 06 15)
-  let persons = ["ashrub","scripter","iph","kaktus"]
+  args <- getArgs
+  let start   = parseTimeOrError False defaultTimeLocale "%Y-%m-%d" (head args)
+  let end     = parseTimeOrError False defaultTimeLocale "%Y-%m-%d" (args !! 1)
+  let personsFileName = args !! 2
+  raw_persons <- readFile personsFileName
+  let persons = words raw_persons
   rndNumber <- randomRIO (0, length persons)
-  print $ makeDutyPlan persons [start..end] rndNumber
+  putStrLn $ prettyDuty $ makeDutyPlan persons [start..end] rndNumber
+ 
