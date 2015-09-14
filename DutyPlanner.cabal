@@ -17,7 +17,7 @@ cabal-version:       >=1.8
 executable DutyPlanner
   main-is:             Main.hs
   other-modules:       DutyPlanner
-  build-depends:       base ==4.5.*, HUnit ==1.2.*, time ==1.4.*
+  build-depends:       base, HUnit, time, random
   hs-source-dirs:      src
   ghc-options:         -W
 
@@ -25,4 +25,4 @@ Test-Suite test-DutyPlanner
   type:                exitcode-stdio-1.0
   main-is:             Main.hs
   hs-source-dirs:      test src
-  build-depends:       base ==4.5.*, HUnit ==1.2.*, time ==1.4.*
+  build-depends:       base, HUnit, time, random

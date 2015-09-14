@@ -1,8 +1,10 @@
-import DutyPlanner
-import Data.Time.Calendar
+import DutyPlanner (makeDutyPlan)
+import Data.Time.Calendar (fromGregorian)
+import System.Random
 
-main = print $ planDuty persons [start..end] where
-  start   = (fromGregorian 2014 06 01)
-  end     = (fromGregorian 2014 06 15)
-  persons = ["ashrub","scripter","iph","kaktus"]
-
+main = do
+  let start   = (fromGregorian 2014 06 01)
+  let end     = (fromGregorian 2014 06 15)
+  let persons = ["ashrub","scripter","iph","kaktus"]
+  rndNumber <- randomRIO (0, length persons)
+  print $ makeDutyPlan persons [start..end] rndNumber
